@@ -1,0 +1,35 @@
+{
+  "description": "CAN signal database of the simulated engine test bench (DBC-like). Signals are little-endian and byte-aligned.",
+  "messages": [
+    {
+      "id": 256,
+      "name": "EngineStatus",
+      "period_ms": 10,
+      "signals": [
+        {"name": "speed_rpm", "start_byte": 0, "length": 2, "signed": false, "factor": 1.0, "offset": 0.0, "unit": "rpm"},
+        {"name": "torque_Nm", "start_byte": 2, "length": 2, "signed": true, "factor": 0.1, "offset": 0.0, "unit": "N.m"},
+        {"name": "throttle_pct", "start_byte": 4, "length": 1, "signed": false, "factor": 0.5, "offset": 0.0, "unit": "%"},
+        {"name": "bench_state", "start_byte": 5, "length": 1, "signed": false, "factor": 1.0, "offset": 0.0, "unit": ""}
+      ]
+    },
+    {
+      "id": 512,
+      "name": "Temperatures",
+      "period_ms": 100,
+      "signals": [
+        {"name": "coolant_temp_C", "start_byte": 0, "length": 2, "signed": true, "factor": 0.1, "offset": 0.0, "unit": "degC"},
+        {"name": "oil_temp_C", "start_byte": 2, "length": 2, "signed": true, "factor": 0.1, "offset": 0.0, "unit": "degC"},
+        {"name": "exhaust_temp_C", "start_byte": 4, "length": 2, "signed": false, "factor": 0.5, "offset": 0.0, "unit": "degC"}
+      ]
+    },
+    {
+      "id": 768,
+      "name": "Pressures",
+      "period_ms": 100,
+      "signals": [
+        {"name": "oil_pressure_bar", "start_byte": 0, "length": 2, "signed": false, "factor": 0.01, "offset": 0.0, "unit": "bar"},
+        {"name": "boost_pressure_bar", "start_byte": 2, "length": 2, "signed": false, "factor": 0.01, "offset": 0.0, "unit": "bar"}
+      ]
+    }
+  ]
+}

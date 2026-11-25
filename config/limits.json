@@ -1,0 +1,10 @@
+{
+  "description": "Acceptance limits checked on every run. Samples recorded during the first ignore_first_s seconds (warm-up) are excluded.",
+  "ignore_first_s": 5,
+  "limits": {
+    "coolant_temp_C": {"max": 105},
+    "oil_temp_C": {"max": 120},
+    "exhaust_temp_C": {"max": 900},
+    "oil_pressure_bar": {"min": 1.0}
+  }
+}

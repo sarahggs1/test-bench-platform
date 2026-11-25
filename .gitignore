@@ -1,0 +1,12 @@
+# build outputs
+bench-sim/build/
+bin/
+obj/
+portal/node_modules/
+portal/.angular/
+# the portal build is generated into the API's wwwroot
+acquisition/src/BenchPortal.Api/wwwroot/
+# local databases
+*.db
+*.db-shm
+*.db-wal

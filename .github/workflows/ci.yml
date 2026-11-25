@@ -1,0 +1,48 @@
+name: ci
+on: [push, pull_request]
+
+jobs:
+  simulator:
+    name: C++ simulator
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: cmake -S bench-sim -B bench-sim/build -DCMAKE_BUILD_TYPE=Release
+      - run: cmake --build bench-sim/build -j
+      - run: ctest --test-dir bench-sim/build --output-on-failure
+
+  acquisition:
+    name: C# acquisition and API
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - run: dotnet test acquisition
+
+  portal:
+    name: Angular portal
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+      - run: npm ci
+        working-directory: portal
+      - run: npx ng build
+        working-directory: portal
+
+  integration:
+    name: End-to-end non-regression
+    runs-on: ubuntu-latest
+    needs: [simulator, acquisition]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+      - run: cmake -S bench-sim -B bench-sim/build -DCMAKE_BUILD_TYPE=Release && cmake --build bench-sim/build -j
+      - run: dotnet build -c Release acquisition/src/BenchPortal.Api
+      - run: scripts/integration_test.sh
